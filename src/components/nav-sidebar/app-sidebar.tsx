@@ -1,4 +1,11 @@
-// import { env } from "@env"
+"use client"
+
+import * as React from "react"
+
+import { NavMain } from "@/components/nav-sidebar/nav-main"
+
+import { NavUser } from "@/components/nav-sidebar/nav-user"
+
 import {
   Sidebar,
   SidebarContent,
@@ -8,30 +15,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import {
-  Command, 
-} from "lucide-react"
-import * as React from "react"
+import { menus } from "@/hooks/query/user-menu"
+import { Command } from "cmdk"
 import { Link } from "react-router-dom"
 
-import { NavMain } from "@/components/nav-sidebar/nav-main" 
-import { NavUser } from "@/components/nav-sidebar/nav-user"
-import { useNavMenu } from "@/hooks/query/user-menu"
-
-// const navSecondary = [
-//   {
-//     title: "Feedback",
-//     url: "https://github.com/TinsFox/shadcnui-boilerplate/issues",
-//     icon: Send,
-//     external: true,
-//   },
-// ]
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: menus } = useNavMenu()
-
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -42,7 +32,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   {/* <span className="truncate font-semibold">{env.VITE_APP_NAME}</span> */}
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate text-xl">Skndan</span>
                 </div>
               </Link>
             </SidebarMenuButton>
