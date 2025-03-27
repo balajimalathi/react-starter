@@ -1,9 +1,7 @@
-import Link from "next/link";
 
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
-import { Check, Divide, DoorClosedIcon, Users, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { Label } from "../ui/label";
 import { HeaderSection } from "../shared/header-section";
 
 const repoBuzzApproaches = [

@@ -9,8 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { useToast } from "@/components/ui/hooks/use-toast"
+} from "@/components/ui/form" 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
@@ -36,22 +35,14 @@ const defaultValues: Partial<AppearanceFormValues> = {
 }
 
 export function AppearanceForm() {
-  const { t } = useTranslation(["settings", "common"])
-  const { toast } = useToast()
+  const { t } = useTranslation(["settings", "common"]) 
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues,
   })
 
   function onSubmit(data: AppearanceFormValues) {
-    toast({
-      title: t("form.you_submitted"),
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    console.log(data)
   }
 
   return (

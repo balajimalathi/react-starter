@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table, TableBody } from "@/components/ui/table"
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { DataTableSkeleton } from "./data-table-skeleton"
+import { DataTableSkeleton } from "./data-table-skeleton" 
 
 const meta = {
   title: "Components/ProTable/Loading",
@@ -13,7 +14,7 @@ const meta = {
     },
   },
   decorators: [
-    (Story) => (
+    (Story: any) => (
       <div className="rounded-md border">
         <Table>
           <TableBody>
@@ -27,6 +28,7 @@ const meta = {
 } satisfies Meta<typeof DataTableSkeleton>
 
 export default meta
+
 type Story = StoryObj<typeof DataTableSkeleton>
 
 export const Default: Story = {

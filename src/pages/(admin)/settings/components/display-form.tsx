@@ -9,8 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { useToast } from "@/components/ui/hooks/use-toast"
+} from "@/components/ui/form" 
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
@@ -55,22 +54,14 @@ const defaultValues: Partial<DisplayFormValues> = {
   items: ["recents", "home"],
 }
 export function DisplayForm() {
-  const { t } = useTranslation(["settings", "common"])
-  const { toast } = useToast()
+  const { t } = useTranslation(["settings", "common"]) 
   const form = useForm<DisplayFormValues>({
     resolver: zodResolver(displayFormSchema),
     defaultValues,
   })
 
   function onSubmit(data: DisplayFormValues) {
-    toast({
-      title: t("sections.display.title"),
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    console.log(data)
   }
 
   return (

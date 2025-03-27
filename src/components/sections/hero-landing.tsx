@@ -1,13 +1,8 @@
-import Link from "next/link";
-
-import { env } from "@/env.mjs";
-import { siteConfig } from "@/config/site";
-import { cn, nFormatter } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
-import Image from "next/image";
-import { Check, X } from "lucide-react";
-import { Label } from "../ui/label";
+import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const repobuzzApproaches = [
   "Auto-generate content from commits & PRs",
@@ -57,8 +52,7 @@ export default async function HeroLanding() {
           style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
         >
           <Link
-            href="/login"
-            prefetch={true}
+            to="/login" 
             className={cn(
               buttonVariants({ size: "lg" }),
               "gap-2 bg-green-600",

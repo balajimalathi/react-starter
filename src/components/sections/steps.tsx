@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import Image from "next/image";
-import dynamic from "next/dynamic";
 import { HeaderSection } from "../shared/header-section";
 
 const videoSources = [
@@ -67,7 +65,7 @@ export default function StepsSection() {
                 <source src={videoSources[selectedStep].src} type="video/mp4" />
               </video>
             ) : (
-              <Image key={videoSources[selectedStep].src} src={videoSources[selectedStep].src} alt={videoSources[selectedStep].alt} width={500} height={300} className="rounded-xl shadow-lg" />
+              <img key={videoSources[selectedStep].src} src={videoSources[selectedStep].src} alt={videoSources[selectedStep].alt} width={500} height={300} className="rounded-xl shadow-lg" />
             )}
           </div>
         </div>

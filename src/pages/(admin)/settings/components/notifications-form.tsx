@@ -9,8 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { useToast } from "@/components/ui/hooks/use-toast"
+} from "@/components/ui/form" 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import { useForm } from "react-hook-form"
@@ -39,22 +38,14 @@ const defaultValues: Partial<NotificationsFormValues> = {
   security_emails: true,
 }
 export function NotificationsForm() {
-  const { t } = useTranslation(["settings"])
-  const { toast } = useToast()
+  const { t } = useTranslation(["settings"]) 
   const form = useForm<NotificationsFormValues>({
     resolver: zodResolver(notificationsFormSchema),
     defaultValues,
   })
 
   function onSubmit(data: NotificationsFormValues) {
-    toast({
-      title: t("form.you_submitted"),
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    console.log(data)
   }
 
   return (

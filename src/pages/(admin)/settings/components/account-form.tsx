@@ -11,7 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { useToast } from "@/components/ui/hooks/use-toast"
 import { Input } from "@/components/ui/input"
 import {
   Popover,
@@ -53,7 +52,6 @@ const accountFormSchema = z.object({
 type AccountFormValues = z.infer<typeof accountFormSchema>
 
 export function AccountForm() {
-  const { toast } = useToast()
   const { t, i18n } = useTranslation(["settings"])
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
@@ -63,14 +61,7 @@ export function AccountForm() {
   })
 
   function onSubmit(data: AccountFormValues) {
-    toast({
-      title: t("form.you_submitted"),
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    console.log(data)
   }
 
   return (
