@@ -4,8 +4,7 @@ interface KeycloakContextType {
 }
  
 // context/KeycloakContext.tsx
-import React, { createContext, useEffect, useState } from "react";
-import keycloak from "@/lib/keycloak";
+import React, { createContext, useEffect, useState } from "react"; 
 
 export const KeycloakContext = createContext<KeycloakContextType>({
   isAuthenticated: false,
@@ -17,12 +16,12 @@ export const KeycloakProvider = ({ children }: { children: React.ReactNode }) =>
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    keycloak.init({ onLoad: "login-required" }).then((auth) => {
-      setIsAuthenticated(auth);
-      if (auth) {
-        setToken(keycloak.token || null);
-      }
-    });
+    // keycloak.init({ onLoad: "login-required" }).then((auth) => {
+    //   setIsAuthenticated(auth);
+    //   if (auth) {
+    //     setToken(keycloak.token || null);
+    //   }
+    // });
   }, []);
 
   return (
