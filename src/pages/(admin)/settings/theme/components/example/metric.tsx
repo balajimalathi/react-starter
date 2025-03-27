@@ -8,7 +8,7 @@ import {
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts"
 
 import { useTheme } from "@/components/theme/theme-provider"
-import { themes } from "@/hooks/themes"
+import { themes } from "@/hooks/themes" 
 import { useConfig } from "@/hooks/use-config"
 
 const data = [

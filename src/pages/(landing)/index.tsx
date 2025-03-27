@@ -1,7 +1,7 @@
  
 import { Logo } from "@/components/icons/logo"  
  
-export function Component() {
+export function Main() {
   return (
     <main className="grid h-full place-items-center">
       

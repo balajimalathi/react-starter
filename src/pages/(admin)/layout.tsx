@@ -28,7 +28,7 @@ export function Component() {
               <Separator orientation="vertical" className="mr-2 hidden h-4 sm:block" />
               <NavBreadcrumb className="hidden sm:flex" />
             </div>
-            <div className="ml-auto flex flex-1 space-x-2 px-2 sm:px-4 lg:max-w-lg justify-end">
+            <div className="ml-auto flex flex-1 space-x-2  sm:px-2 lg:max-w-lg justify-end">
               <Search /> 
               <ThemeSwitcher />
             </div>
