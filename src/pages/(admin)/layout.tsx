@@ -35,8 +35,8 @@ export function Component() {
           </header>
         </div>
 
-        <ScrollArea className="flex h-[calc(100vh-5rem)] flex-col gap-4 p-2 pt-0 sm:h-[calc(100vh-5rem)] sm:p-4">
-          <div className="p-2 sm:py-4">
+        <ScrollArea className="flex h-[calc(100vh-5rem)] flex-col gap-4   pt-0 sm:h-[calc(100vh-5rem)]">
+          <div className="p-4 sm:py-4">
             <Outlet />
           </div>
           <ScrollBar orientation="horizontal" />
