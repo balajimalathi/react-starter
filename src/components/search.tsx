@@ -55,9 +55,10 @@ export function Search({ ...props }: ButtonProps & DialogProps) {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:w-64 md:w-80 lg:w-96",
+          "h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:w-64 md:w-80 lg:w-96",
           "transition-all duration-200",
           "hover:bg-muted/80",
+          props.className
         )}
         onClick={() => setOpen(true)}
         {...props}
@@ -66,9 +67,9 @@ export function Search({ ...props }: ButtonProps & DialogProps) {
           <SearchIcon className="size-4" />
           <span className="sm:inline-flex">{t("search")}...</span>
         </span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        {/* <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
-        </kbd>
+        </kbd> */}
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
