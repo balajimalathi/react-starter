@@ -60,7 +60,7 @@ export function NavMobile() {
                 {title}
               </Link>
             </li>
-          ))}
+          ))} 
 
           <li className="py-3">
             <Link

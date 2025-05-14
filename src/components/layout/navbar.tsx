@@ -18,13 +18,10 @@ import MaxWidthWrapper from "../shared/max-width-wrapper";
 import { Search } from "../search";
 import { siteConfig } from "@/config/site";
 import { Button } from "../ui/button";
-import { Icons } from "../shared/icons";
-
 
 export function NavBar() {
-
-
   const links = marketingConfig.mainNav;
+  const exploreNav = marketingConfig.exploreNav;
 
   const location = useLocation();
   const segments = location.pathname.split('/').filter(Boolean);
@@ -62,9 +59,14 @@ export function NavBar() {
                       </a>
                     </NavigationMenuLink>
                   </li>
-                  <ListItem href="/docs/installation" title="Installation">
-                    How to install dependencies and structure your app.
-                  </ListItem>
+ 
+
+                  {exploreNav.map((route) => (
+                    <ListItem href={route.href} title={route.title}>
+                      {route.description}
+                    </ListItem>
+                  ))}
+{/* 
                   <ListItem href="/docs/primitives/typography" title="Typography">
                     Styles for headings, paragraphs, lists...etc
                   </ListItem>
@@ -79,7 +81,7 @@ export function NavBar() {
                   </ListItem>
                   <ListItem href="/docs/primitives/typography" title="Typography">
                     Styles for headings, paragraphs, lists...etc
-                  </ListItem>
+                  </ListItem> */}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -130,9 +132,9 @@ export function NavBar() {
         </NavigationMenu>
 
         <div className="flex flex-grow justify-end gap-2 items-center">
- 
 
-          <Search className="w-80 justify-start sm:w-80 md:w-80 lg:w-96 mr-8 md:mr-0"/>
+
+          <Search className="w-80 justify-start sm:w-80 md:w-80 lg:w-96 mr-8 md:mr-0" />
           <Link
             to={siteConfig.login}
             target="_self"

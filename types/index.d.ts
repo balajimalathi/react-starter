@@ -1,4 +1,4 @@
- 
+
 import { Icons } from "@/components/shared/icons";
 
 export type SiteConfig = {
@@ -31,6 +31,7 @@ export type MainNavItem = NavItem;
 
 export type MarketingConfig = {
   mainNav: MainNavItem[];
+  exploreNav: MainNavItem[];
 };
 
 export type SidebarNavItem = {
