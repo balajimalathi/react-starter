@@ -212,11 +212,12 @@ export default function PreviewLanding() {
                 Join as an Artist
               </Button>
             </div>
-            <div className="relative h-[250px] md:h-[300px]">
+           
+                <div className="relative h-[250px] lg:h-[300px] overflow-hidden">
               <img
-                src="/placeholder.svg?height=300&width=500"
+                src="/placeholder.svg"
                 alt="Makeup artist working"
-                className="object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
           </div>

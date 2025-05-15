@@ -29,20 +29,20 @@ export function NavBar() {
   const selectedLayout = segments[0]; // or any index
 
   return (
-    <header className={`sticky top-0 z-10 flex w-full justify-center bg-background transition-all border-b`}>
+    <header className={`sticky top-0 z-40 flex w-full justify-center bg-background transition-all border-b`}>
 
       <MaxWidthWrapper
         className="flex h-14 items-center justify-between py-4"
         large={false}
       >
-        <Logo className="size-12 shrink-none" />
+        <Logo className="size-12 shrink-0" />
         <NavigationMenu className="pl-8 hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
               <NavigationMenuContent className="p-0">
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-4">
+                  <li className="row-span-4" key={`root`}>
                     <NavigationMenuLink asChild>
                       <a
                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
@@ -59,14 +59,14 @@ export function NavBar() {
                       </a>
                     </NavigationMenuLink>
                   </li>
- 
+
 
                   {exploreNav.map((route) => (
-                    <ListItem href={route.href} title={route.title}>
+                    <ListItem key={route.title} href={route.href} title={route.title}>
                       {route.description}
                     </ListItem>
                   ))}
-{/* 
+                  {/* 
                   <ListItem href="/docs/primitives/typography" title="Typography">
                     Styles for headings, paragraphs, lists...etc
                   </ListItem>
@@ -112,19 +112,18 @@ export function NavBar() {
                   </NavigationMenuContent>
                 </NavigationMenuItem> :
                 <NavigationMenuItem key={route.href}>
-                  <Link to={route.href}>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        route.href.startsWith(`/${selectedLayout}`)
-                          ? "text-black dark:text-white"
-                          : "text-muted-foreground"
-                      )}
-                    >
-                      {route.title}
-                      {/* <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">New</span> */}
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    href={route.href}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      route.href.startsWith(`/${selectedLayout}`)
+                        ? "text-black dark:text-white"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {route.title}
+                    {/* <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">New</span> */}
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
             ))}
 

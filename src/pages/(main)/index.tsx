@@ -3,7 +3,7 @@ import Hero from "@/components/sections/hero"
 import MakeupArtist from "@/components/sections/makeup-artist"
 import TrustedBy from "@/components/sections/trusted-by"
 
-export function Component() {
+export function MainComponent() {
   return (
     <>
       <Hero />
