@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -15,24 +14,28 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
-  Sparkles,
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
 
-import { useUser, useUserLogoutMutation } from "@/hooks/query/use-user"
+import { useAuth } from "react-oidc-context"
 
 export function NavUser() {
   const { isMobile } = useSidebar()
   const { t } = useTranslation("navigation")
-  const { data: user } = useUser()
+  const auth = useAuth()
 
-  const logout = useUserLogoutMutation()
+  const username = auth.user?.profile?.preferred_username || auth.user?.profile?.name || "User"
+  const email = auth.user?.profile?.email || ""
+  const avatar = "" // Optionally derive from a claim or Gravatar
+
+  // Safe logout function that checks if keycloak is available
+  const handleLogout = () => {
+    if (typeof window === "undefined") return
+    auth.signoutRedirect()
+  }
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -42,13 +45,15 @@ export function NavUser() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="size-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.username} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              <Avatar className="size-8 rounded-full">
+                <AvatarImage src={avatar} alt={username} />
+                <AvatarFallback className="rounded-full">
+                  {username.slice(0, 2).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.username}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">{username}</span>
+                <span className="truncate text-xs">{email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -61,50 +66,22 @@ export function NavUser() {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-2 py-1.5 text-left text-sm">
-                <Avatar className="size-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.username} />
-                  <AvatarFallback className="rounded-lg">
-                    {user.username.slice(0, 2)}
+                <Avatar className="size-8 rounded-full">
+                  <AvatarImage src={avatar} alt={username} />
+                  <AvatarFallback className="rounded-full">
+                    {username.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.username}</span>
-                  <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+                  <span className="truncate font-semibold">{username}</span>
+                  <span className="truncate text-xs text-muted-foreground">{email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="my-1" />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="flex items-center gap-2 px-2 py-1.5">
-                <Sparkles className="size-4" />
-                <span>{t("user.upgrade_pro")}</span>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator className="my-1" />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="flex items-center gap-2 px-2 py-1.5" asChild>
-                <Link to="/settings/profile">
-                  <BadgeCheck className="size-4" />
-                  <span>{t("user.account")}</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-2 px-2 py-1.5" asChild>
-                <Link to="/system/account/billing">
-                  <CreditCard className="size-4" />
-                  <span>{t("user.billing")}</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-2 px-2 py-1.5" asChild>
-                <Link to="/system/notifications">
-                  <Bell className="size-4" />
-                  <span>{t("user.notifications")}</span>
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator className="my-1" />
             <DropdownMenuItem
               className="flex items-center gap-2 px-2 py-1.5"
-              onSelect={() => logout.mutate()}
+              onSelect={() => handleLogout()}
             >
               <LogOut className="size-4" />
               <span>{t("user.logout")}</span>

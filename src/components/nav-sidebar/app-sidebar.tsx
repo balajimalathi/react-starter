@@ -11,19 +11,39 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { menus } from "@/hooks/query/user-menu"
-import { Command } from "cmdk"
-import { Link } from "react-router-dom"
+import { menus } from "@/hooks/query/user-menu" 
+import { NavSecondary } from "./nav-secondary"
+import { TeamSwitcher } from "./team-switcher"
+import { AudioWaveform, Command, GalleryVerticalEnd } from "lucide-react"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+
+  const data = {
+    teams: [
+      {
+        name: "Acme Inc",
+        logo: GalleryVerticalEnd,
+        plan: "Enterprise",
+      },
+      {
+        name: "Acme Corp.",
+        logo: AudioWaveform,
+        plan: "Startup",
+      },
+      {
+        name: "Evil Corp.",
+        logo: Command,
+        plan: "Free",
+      },
+    ]
+  }
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
+        <TeamSwitcher teams={data.teams} />
+        {/* <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/dashboard">
@@ -31,17 +51,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  {/* <span className="truncate font-semibold">{env.VITE_APP_NAME}</span> */}
+                  <span className="truncate font-semibold">{env.VITE_APP_NAME}</span>
                   <span className="truncate text-xl">Skndan</span>
                 </div>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        </SidebarMenu>
+        </SidebarMenu> */}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={menus} />
-        {/* <NavSecondary items={navSecondary} className="mt-auto" /> */}
+        <NavSecondary items={[]} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

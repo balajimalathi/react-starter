@@ -179,9 +179,9 @@ export default function Hero() {
 
   return (
     <div ref={containerRef} className="storybook-fix relative flex min-h-96 w-full">
-      {trailsRef.current.map((ref, index) => (
+      {/* {trailsRef.current.map((ref, index) => (
         <AnimatedImage key={index} ref={ref} src={images[index % images.length]} />
-      ))}
+      ))} */}
       <section className="relative mx-auto flex flex-col items-center justify-center py-14">
         <div className="relative z-20 container max-w-6xl px-4 md:px-0">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">

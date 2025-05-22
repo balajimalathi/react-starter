@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
     twitter: "https://twitter.com/balajimalathi_",
     github: "https://github.com/balajimalathi",
   },
-  login: "/login",
+  login: "/auth/sign-in",
   mailSupport: "repovox.official@gmail.com",
 };
 

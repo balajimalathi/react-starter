@@ -7,10 +7,9 @@ import {
   // useSuspenseQuery,
 } from "@tanstack/react-query"
 import type { PaginationState } from "@tanstack/react-table"
-import { useNavigate } from "react-router-dom"
 
 import type { ILoginForm, IUserProfile, IUsers } from "@/schema/user"
-import { apiFetch } from "@/lib/api-fetch"
+import { apiFetch } from "@/lib/api-fetch" 
 
 export const queryUser = () => queryOptions({
   queryKey: ["userInfo"],
@@ -25,28 +24,128 @@ export const queryUserInfo = () =>
     }>(`/api/users/info`),
   })
 
+// Function to decode JWT token
+// function decodeToken(token: string) {
+//   // Only run in browser environment
+//   if (typeof window === 'undefined') return null;
+  
+//   try {
+//     // Split the token and get the payload part
+//     const base64Url = token.split('.')[1];
+//     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     // Decode the base64 string
+//     const jsonPayload = decodeURIComponent(
+//       atob(base64)
+//         .split('')
+//         .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+//         .join('')
+//     );
+//     // Parse the JSON
+//     return JSON.parse(jsonPayload);
+//   } catch (error) {
+//     console.error('Error decoding token:', error);
+//     return null;
+//   }
+// }
+
 export function useUser() {
-
-  const mockUserProfile = {
-    data: {
-      userId: "user_12345",
-      avatar: "https://example.com/avatar.png",
-      password: "hashed_password_here",
-      birthdate: new Date("1995-06-15"),
-      registeredAt: new Date("2024-01-01"),
-      username: "john_doe",
-      email: "john.doe@example.com",
-      bio: "Full-stack developer & coffee lover.",
-      urls: [
-        { value: "https://johndoe.dev" },
-        { value: "https://github.com/johndoe" },
-      ],
-    }
+  // const { token, keycloak } = useKeycloakAuth();
+  
+  // Only run full logic in browser environment
+  if (typeof window === 'undefined') {
+    // Return default profile during server-side rendering
+    return {
+      data: {
+        userId: "",
+        avatar: "",
+        username: "User",
+        email: "",
+        password: "",
+        birthdate: new Date(),
+        registeredAt: new Date(),
+        bio: "",
+        urls: [],
+      }
+    };
   }
-
-  return mockUserProfile;
-
-  // return useSuspenseQuery(queryUserInfo())
+  
+  // Default user profile with fallback values
+  const defaultProfile = {
+    userId: "",
+    avatar: "",
+    username: "User",
+    email: "",
+    password: "",
+    birthdate: new Date(),
+    registeredAt: new Date(),
+    bio: "",
+    urls: [],
+  };
+  
+  // If we have a token, try to extract user info from it
+  // console.log(token);
+  // if (token) {
+  //   const decodedToken = decodeToken(token);
+    
+  //   if (decodedToken) {
+  //     // Extract user info from the token
+  //     // Common claims in Keycloak tokens
+  //     const userId = decodedToken.sub || "";
+  //     const email = decodedToken.email || "";
+  //     const name = decodedToken.name || decodedToken.preferred_username || "";
+  //     const username = decodedToken.preferred_username || name || email.split('@')[0];
+      
+  //     // Generate avatar from name or email
+  //     const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || username)}&background=random`;
+      
+  //     return {
+  //       data: {
+  //         userId,
+  //         avatar,
+  //         username,
+  //         email,
+  //         // Add other fields with default values
+  //         password: "",
+  //         birthdate: new Date(),
+  //         registeredAt: new Date(),
+  //         bio: "",
+  //         urls: [],
+  //       }
+  //     };
+  //   }
+  // }
+  
+  // // If we have keycloak but no token info, try to get info from keycloak
+  // if (keycloak && keycloak.tokenParsed) {
+  //   const tokenInfo = keycloak.tokenParsed;
+  //   const userId = tokenInfo.sub || "";
+  //   const email = tokenInfo.email || "";
+  //   const name = tokenInfo.name || tokenInfo.preferred_username || "";
+  //   const username = tokenInfo.preferred_username || name || email.split('@')[0];
+    
+  //   // Generate avatar from name or email
+  //   const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || username)}&background=random`;
+    
+  //   return {
+  //     data: {
+  //       userId,
+  //       avatar,
+  //       username,
+  //       email,
+  //       // Add other fields with default values
+  //       password: "",
+  //       birthdate: new Date(),
+  //       registeredAt: new Date(),
+  //       bio: "",
+  //       urls: [],
+  //     }
+  //   };
+  // }
+  
+  // Fallback to default profile if no token or keycloak info
+  return {
+    data: defaultProfile
+  };
 }
 
 export function useUserLoginMutation() {
@@ -61,14 +160,16 @@ export function useUserLoginMutation() {
 }
 
 export function useUserLogoutMutation() {
-  const navigate = useNavigate()
+  // const { logout } = useKeycloakAuth();
+  
   return useMutation({
-    mutationFn: async () => await apiFetch("/api/logout"),
-    mutationKey: ["user-logout"],
-    onSuccess: () => {
-      localStorage.clear()
-      navigate("/login")
+    mutationFn: async () => {
+      // Use Keycloak logout instead of API endpoint
+      // logout();
+      return { success: true };
     },
+    mutationKey: ["user-logout"]
+    // No need for onSuccess handler as Keycloak logout will handle the redirect
   })
 }
 

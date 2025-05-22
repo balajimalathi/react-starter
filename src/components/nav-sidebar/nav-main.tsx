@@ -1,13 +1,13 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { SidebarGroup, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "@/components/ui/sidebar"
-import { useAtom } from "jotai" 
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "@/components/ui/sidebar"
+import { useAtom } from "jotai"
 import { useEffect, useMemo } from "react"
-import { useTranslation } from "react-i18next"
 import { Link, useLocation } from "react-router-dom"
 
 import { navOpenItemsAtom } from "@/atoms/nav"
 import type { IMenu } from "@/schema/menu"
 import { ChevronRight } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 export function NavMain({
   items,
@@ -45,54 +45,56 @@ export function NavMain({
     if (hasChanges) {
       setOpenItems(newOpenItems)
     }
-  }, [location.pathname, items, isPathActive, isParentActive])
+  }, [location.pathname, items, isPathActive, isParentActive, openItems, setOpenItems])
 
-  const handleToggle = (title: string) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [title]: !prev[title],
-    }))
-  }
+  // const handleToggle = (title: string) => {
+  //   setOpenItems((prev) => ({
+  //     ...prev,
+  //     [title]: !prev[title],
+  //   }))
+  // }
 
   // const handleToggleAll = () => {
   //   const allExpanded = items.every((item) => openItems[item.title])
   //   const newOpenItems: Record<string, boolean> = {}
-
   //   items.forEach((item) => {
   //     newOpenItems[item.title] = !allExpanded
   //   })
-
   //   setOpenItems(newOpenItems)
   // }
 
   return (
     <SidebarGroup>
-      {/* <div className="flex items-center justify-between">
-        <SidebarGroupLabel>Platform</SidebarGroupLabel>
-        <Button
-          type="button"
-          size="icon"
-          variant="ghost"
-          onClick={handleToggleAll}
-          className="rounded-md p-1 hover:bg-muted"
-          title={items.every((item) => openItems[item.title]) ? "Collapse all" : "Expand all"}
-        >
-          {items.every((item) => openItems[item.title]) ? (
-            <ChevronsDownUp className="size-4" />
-          ) : (
-            <ChevronsUpDown className="size-4" />
-          )}
-        </Button>
-      </div> */}
+      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
             key={item.title}
             asChild
-            open={openItems[item.title]}
-            onOpenChange={() => handleToggle(item.title)}
-          >
-            <SidebarMenuItem>
+            className="group/collapsible">
+            {item.children?.length ?
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip={item.title}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {item.children?.map((subItem) => (
+                      <SidebarMenuSubItem key={subItem.title}>
+                        <SidebarMenuSubButton asChild>
+                          <Link to={subItem.to}>
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem> :
               <SidebarMenuButton
                 asChild
                 tooltip={t(item.title)}
@@ -103,36 +105,51 @@ export function NavMain({
                   <span>{t(item.title)}</span>
                 </Link>
               </SidebarMenuButton>
-              {item.children?.length ? (
-                <>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuAction className="data-[state=open]:rotate-90">
-                      <ChevronRight />
-                      <span className="sr-only">Toggle</span>
-                    </SidebarMenuAction>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {item.children?.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton
-                            asChild
-                            data-active={isPathActive(subItem.to)}
-                          >
-                            <Link to={subItem.to}>
-                              <span>{t(subItem.title)}</span>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </>
-              ) : null}
-            </SidebarMenuItem>
+
+            }
           </Collapsible>
         ))}
       </SidebarMenu>
     </SidebarGroup>
   )
 }
+
+
+{/* <SidebarMenuButton
+  asChild
+  tooltip={t(item.title)}
+  data-active={item.children ? false : isPathActive(item.to)}
+>
+  <Link to={item.to}>
+    <item.icon />
+    <span>{t(item.title)}</span>
+  </Link>
+</SidebarMenuButton>
+{
+  item.children?.length ? (
+    <>
+      <CollapsibleTrigger asChild>
+        <SidebarMenuAction className="data-[state=open]:rotate-90">
+          <ChevronRight />
+          <span className="sr-only">Toggle</span>
+        </SidebarMenuAction>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <SidebarMenuSub>
+          {item.children?.map((subItem) => (
+            <SidebarMenuSubItem key={subItem.title}>
+              <SidebarMenuSubButton
+                asChild
+                data-active={isPathActive(subItem.to)}
+              >
+                <Link to={subItem.to}>
+                  <span>{t(subItem.title)}</span>
+                </Link>
+              </SidebarMenuSubButton>
+            </SidebarMenuSubItem>
+          ))}
+        </SidebarMenuSub>
+      </CollapsibleContent>
+    </>
+  ) : null
+} */}

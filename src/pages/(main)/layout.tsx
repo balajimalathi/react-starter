@@ -8,7 +8,9 @@ export function Component() {
     <div className="flex min-h-screen flex-col overflow-x-hidden">
       <NavMobile />
       <NavBar />
-      <main className="flex-1"><Outlet /></main>
+      <main className="flex-1">
+        <Outlet />
+      </main>
       <SiteFooter />
     </div>
   )

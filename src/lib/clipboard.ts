@@ -1,4 +1,4 @@
-import toast from "react-hot-toast"
+import { toast } from "sonner"
 
 interface CopyToClipboardOptions {
   text: string
@@ -6,13 +6,13 @@ interface CopyToClipboardOptions {
 }
 export function setClipboardText({ text, info }: CopyToClipboardOptions) {
   if (!navigator.clipboard) {
-    toast.error("Clipboard API not available")
+    toast("Clipboard API not available")
     throw new Error("Clipboard API not available")
   }
   if (!text) {
-    toast.error("Text is empty")
+    toast("Text is empty")
     throw new Error("Text is empty")
   }
   navigator.clipboard.writeText(text)
-  toast.success(`${info ?? ""} copied to clipboard`)
+  toast(`${info ?? ""} copied to clipboard`)
 }

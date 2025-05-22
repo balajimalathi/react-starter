@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 import { isRouteErrorResponse, useRouteError } from "react-router-dom"
-import toast from "react-hot-toast";
-
+ 
 import { Logo } from "@/components/icons/logo"
 import { attachOpenInEditor } from "@/lib/dev"
 import { getNewIssueUrl } from "@/lib/issues"
@@ -29,7 +28,7 @@ export function ErrorElement() {
     window.sessionStorage.getItem("reload") !== "1"
   ) {
     if (reloadRef.current) return null
-    toast.error("Web app has been updated so it needs to be reloaded.")
+    // toast.error("Web app has been updated so it needs to be reloaded.")
     window.sessionStorage.setItem("reload", "1")
     window.location.reload()
     reloadRef.current = true

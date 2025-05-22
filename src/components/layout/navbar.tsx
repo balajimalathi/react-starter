@@ -144,24 +144,9 @@ export function NavBar() {
               variant="outline"
               size="sm"
             >
-              <span>Sign In</span>
+              <span>Login</span>
             </Button>
           </Link>
-
-          <Link
-            to={siteConfig.login}
-            target="_self"
-            rel="noreferrer"
-          >
-            <Button
-              className="hidden gap-2 px-5 md:flex"
-              variant="default"
-              size="sm"
-            >
-              <span>Join</span>
-            </Button>
-          </Link>
-
         </div>
 
       </MaxWidthWrapper>
