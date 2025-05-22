@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Edit, MoreHorizontal, Trash } from "lucide-react"; 
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,8 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { IBrand } from "@/schema/brand"; 
+import { IBrand } from "@/schema/brand";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface CellActionProps {
   data: IBrand;
@@ -22,6 +23,7 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({
   data,
 }) => {
+  const navigate = useNavigate();
   // const router = useRouter(); 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -69,9 +71,9 @@ export const CellAction: React.FC<CellActionProps> = ({
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end"> 
+        <DropdownMenuContent align="end">
           <DropdownMenuItem
-            onClick={() => setOpenForm(true)}
+            onClick={() => navigate(`/admin/product/brand/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" /> Edit
           </DropdownMenuItem>

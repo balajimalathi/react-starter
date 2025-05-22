@@ -18,7 +18,6 @@ export * from "./data-table-faceted-filter"
 export * from "./data-table-pagination"
 export * from "./data-table-search"
 export * from "./data-table-skeleton"
-export * from "./data-table-toolbar"
 export type {
   ColumnDef,
   DataTableProps as ProTableProps,
