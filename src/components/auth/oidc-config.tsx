@@ -2,7 +2,7 @@
 import { AuthProviderProps } from "react-oidc-context";
 
 export const oidcConfig: AuthProviderProps = {
-  authority: "http://localhost:8080/realms/robin-realm",
+  authority: "http://localhost:8180/realms/robin-realm",
   client_id: "robin-ui",
   redirect_uri: window.location.origin + "/auth/callback",
   silent_redirect_uri: window.location.origin + "/silent-renew",
